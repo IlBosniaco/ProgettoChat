@@ -27,7 +27,7 @@ public class ClientChat {
     public static void main(String[] args) throws SocketException, IOException {
         // TODO code application logic here
 
-        DatagramSocket client = new DatagramSocket(12345);
+        DatagramSocket client = new DatagramSocket(2003);
         byte[] buffer = new byte[1500];
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         Scanner reader = new Scanner(System.in);
