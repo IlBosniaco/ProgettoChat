@@ -21,6 +21,7 @@ public class Condivisa {
     String nicknameMittente;
     String nicknameDestinatario;
     boolean connected;
+    boolean connecting;
     
     public Condivisa(){
         frame = null;
@@ -31,6 +32,7 @@ public class Condivisa {
         nicknameMittente="";
         nicknameDestinatario="";
         connected = false;
+        connecting =false;
     }
     
     public Condivisa(chatFrame frame){
@@ -42,6 +44,7 @@ public class Condivisa {
         nicknameMittente="";
         nicknameDestinatario="";
         connected = false;
+        connecting = false;
     }
     
     public void aggiungiPacchettoR(String p){
@@ -52,8 +55,8 @@ public class Condivisa {
         pacchettiRicevuti.remove(i);
     }
     
-    public void cancellaPrimoR(){
-        pacchettiRicevuti.remove(0);
+    public String cancellaPrimoR(){
+        return pacchettiRicevuti.remove(0);
     }
     
     public void aggiungiPacchettoI(String p){
@@ -108,5 +111,11 @@ public class Condivisa {
         this.connected = connected;
     }
     
+    public boolean isEmptyInvio(){
+        return pacchettiDaInviare.isEmpty();
+    }
     
+    public boolean isEmptyRicevi(){
+        return pacchettiRicevuti.isEmpty();
+    }
 }

@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Luca.pozzi
+ * @author matte
  */
 public class chatFrame extends javax.swing.JFrame {
 
@@ -19,10 +19,12 @@ public class chatFrame extends javax.swing.JFrame {
      * Creates new form testFrame
      */
     Condivisa c;
+    gestioneEventi g;
 
-    public chatFrame(Condivisa c) throws HeadlessException {
+    public chatFrame(Condivisa c, gestioneEventi g) throws HeadlessException {
         initComponents();
         this.c = c;
+        this.g=g;
         c.frame=this;
     }
     
@@ -125,14 +127,17 @@ public class chatFrame extends javax.swing.JFrame {
 
     private void btnConnettiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnettiActionPerformed
         // TODO add your handling code here:
+        g.connetti();
     }//GEN-LAST:event_btnConnettiActionPerformed
 
     private void btnInvia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvia2ActionPerformed
         // TODO add your handling code here:
+        g.invia(txtMessaggio.getText());
     }//GEN-LAST:event_btnInvia2ActionPerformed
 
     private void chiudiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chiudiActionPerformed
         // TODO add your handling code here:
+        g.disconnetti();
     }//GEN-LAST:event_chiudiActionPerformed
 
     /**
@@ -164,21 +169,16 @@ public class chatFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         Condivisa c = new Condivisa();
+        gestioneEventi g = new gestioneEventi(c);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new chatFrame(c).setVisible(true);
+                new chatFrame(c,g).setVisible(true);
             }
         });
-        while(c.frame==null )
-        {
-            //OTTIMIZZABILE! aspetto che venga settata dal form
-            sleep(1);
-        }
-            
-        ThreadTest t = new ThreadTest(c);
-        t.start();
+
+        
     }
     
     

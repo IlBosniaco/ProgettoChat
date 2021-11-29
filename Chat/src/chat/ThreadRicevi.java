@@ -32,7 +32,7 @@ public class ThreadRicevi extends Thread{
     
     @Override
     public void run() {
-        while(true){                       
+        while(true){ 
             byte[] bufferRicevi = c.cancellaPrimoI().getBytes();
             DatagramPacket packet = new DatagramPacket(bufferRicevi, bufferRicevi.length);
             try {
