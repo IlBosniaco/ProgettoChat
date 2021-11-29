@@ -34,7 +34,8 @@ public class ThreadInvio extends Thread {
     public void run() {
         while (true) {
             if (!c.isEmptyInvio()) {
-                byte[] bufferInvia = new byte[1500];
+                String messaggio = c.cancellaPrimoI();
+                byte[] bufferInvia = messaggio.getBytes();
                 DatagramPacket packet = new DatagramPacket(bufferInvia, bufferInvia.length);
                 packet.setAddress(c.getIndirizzoDestinatario());
                 packet.setPort(2003);
@@ -42,6 +43,14 @@ public class ThreadInvio extends Thread {
                     invia.send(packet);
                 } catch (IOException ex) {
                     Logger.getLogger(ThreadInvio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (messaggio.equals("e")) {
+                    c.connected = false;
+                    c.connecting = false;
+                    c.setIndirizzoDestinatario(null);
+                    c.setNicknameDestinatario("");
+                    c.frame.Setlabel("");
+                    c.sender=false;
                 }
             }
         }

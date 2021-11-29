@@ -4,6 +4,10 @@
  */
 package chat;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -34,32 +38,50 @@ public class ThreadElabora extends Thread{
                     messaggio = pacchetto.substring(1, pacchetto.length());
                 }
                 
-                if(comando.equals("c")){          
-                    if(g.accetta())
-                    {
-                        c.setNicknameDestinatario(messaggio);
-                        c.aggiungiPacchettoI("y"+c.getNicknameMittente());
-                        c.connecting=true;
-                    }else{
-                        c.aggiungiPacchettoI("n");
-                    }
-                }
-                else if(comando.equals("y")){
-                    if(c.connecting == false){
-                        if(g.accetta()){
+                if(comando.equals("c")){  
+                    System.out.println("hai ricevuto una richiesta di connessione");
+                    try {
+                        if(g.accetta())
+                        {
                             c.setNicknameDestinatario(messaggio);
-                            c.aggiungiPacchettoI("y"+c.getNicknameMittente()); 
+                            c.aggiungiPacchettoI("y"+c.getNicknameMittente());
                             c.connecting=true;
                         }else{
                             c.aggiungiPacchettoI("n");
                         }
-                    }else{
-                        if(g.accetta()){
-                            c.aggiungiPacchettoI("y");
-                            c.connected=true;
-                        }else{
-                            c.aggiungiPacchettoI("n");
+                    } catch (IOException ex) {
+                        Logger.getLogger(ThreadElabora.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else if(comando.equals("y")){
+                    if(c.connecting == false){
+                        System.out.println("vuoi confermare la connessione?");
+                        try {
+                            if(g.accetta()){
+                                c.setNicknameDestinatario(messaggio);
+                                c.aggiungiPacchettoI("y"+c.getNicknameMittente());
+                                c.connecting=true;
+                            }else{
+                                c.aggiungiPacchettoI("n");
+                            }
+                        } catch (IOException ex) {
+                            Logger.getLogger(ThreadElabora.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    }else if(c.connecting==true&&c.sender==true){
+                        System.out.println("vuoi confermare la connessione?");
+                        try {
+                            if(g.accetta()){
+                                c.aggiungiPacchettoI("y");
+                                c.connected=true;
+                            }else{
+                                c.aggiungiPacchettoI("n");
+                                c.connecting=false;
+                            }
+                        } catch (IOException ex) {
+                            Logger.getLogger(ThreadElabora.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else{
+                        c.connected=true;
                     }
                 }
                 else if(comando.equals("n")){

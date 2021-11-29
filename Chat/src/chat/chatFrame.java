@@ -7,6 +7,9 @@ package chat;
 
 import java.awt.HeadlessException;
 import static java.lang.Thread.sleep;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 /**
@@ -126,8 +129,12 @@ public class chatFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConnettiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnettiActionPerformed
-        // TODO add your handling code here:
-        g.connetti();
+        try {
+            // TODO add your handling code here:
+            g.connetti();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(chatFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnConnettiActionPerformed
 
     private void btnInvia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvia2ActionPerformed
@@ -182,7 +189,15 @@ public class chatFrame extends javax.swing.JFrame {
     }
     
     
+    public String GetAddress()
+    {
+        return txtDestinatario.getText();
+    }
     
+    public String GetLabel()
+    {
+        return txtChat.getText();
+    }
     
     
     

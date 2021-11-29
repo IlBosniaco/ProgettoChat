@@ -43,8 +43,11 @@ public class ThreadRicevi extends Thread{
             byte[] dataReceived = packet.getData();
             String messaggio = new String(dataReceived, 0, packet.getLength());
             
-            if(messaggio.substring(0, 1).equals("c")&&c.connected==true){
+            if(messaggio.substring(0, 1).equals("c")&&(c.connected==true||c.connecting==true)){
                 c.aggiungiPacchettoR("d");//nega connessione
+            }else if(c.connected==false&&c.connecting==false){
+                c.setIndirizzoDestinatario(packet.getAddress());
+                c.aggiungiPacchettoR(messaggio);
             }else{
                 c.aggiungiPacchettoR(messaggio);
             }

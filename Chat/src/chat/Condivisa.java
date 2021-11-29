@@ -16,45 +16,41 @@ public class Condivisa {
     chatFrame frame;   
     List<String> pacchettiRicevuti;
     List<String> pacchettiDaInviare;
-    InetAddress indirizzoMittente;
     InetAddress indirizzoDestinatario;
     String nicknameMittente;
     String nicknameDestinatario;
     boolean connected;
     boolean connecting;
+    boolean sender;
     
     public Condivisa(){
         frame = null;
         pacchettiRicevuti = new ArrayList();
         pacchettiDaInviare = new ArrayList();
-        indirizzoMittente=null;
         indirizzoDestinatario=null;
-        nicknameMittente="";
+        nicknameMittente="Matteo";
         nicknameDestinatario="";
         connected = false;
         connecting =false;
+        sender=false;
     }
     
     public Condivisa(chatFrame frame){
         this.frame=frame;
         pacchettiRicevuti = new ArrayList();
         pacchettiDaInviare = new ArrayList();
-        indirizzoMittente=null;
         indirizzoDestinatario=null;
-        nicknameMittente="";
+        nicknameMittente="Matteo";
         nicknameDestinatario="";
         connected = false;
         connecting = false;
+        sender=false;
     }
     
     public void aggiungiPacchettoR(String p){
         pacchettiRicevuti.add(p);
     }
-    
-    public void cancellaPacchettoR(int i){
-        pacchettiRicevuti.remove(i);
-    }
-    
+
     public String cancellaPrimoR(){
         return pacchettiRicevuti.remove(0);
     }
@@ -63,21 +59,10 @@ public class Condivisa {
         pacchettiDaInviare.add(p);
     }
     
-    public void cancellaPacchettoI(int i){
-        pacchettiDaInviare.remove(i);
-    }
-    
     public String cancellaPrimoI(){
         return pacchettiDaInviare.remove(0);
     }
 
-    public InetAddress getIndirizzoMittente() {
-        return indirizzoMittente;
-    }
-
-    public void setIndirizzoMittente(InetAddress indirizzoMittente) {
-        this.indirizzoMittente = indirizzoMittente;
-    }
 
     public InetAddress getIndirizzoDestinatario() {
         return indirizzoDestinatario;
