@@ -97,10 +97,20 @@ public class Condivisa {
     }
     
     public boolean isEmptyInvio(){
-        return pacchettiDaInviare.isEmpty();
+        if(pacchettiDaInviare.size()>0)
+        {
+            return false;
+        }else{
+            return true;
+        }
     }
     
     public boolean isEmptyRicevi(){
-        return pacchettiRicevuti.isEmpty();
+        if(pacchettiRicevuti.size()>0)
+        {
+            return false;
+        }else{
+            return true;
+        }
     }
 }

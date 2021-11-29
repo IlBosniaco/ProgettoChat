@@ -189,6 +189,9 @@ public class chatFrame extends javax.swing.JFrame {
             }
         });
 
+        tr.start();
+        ti.start();
+        te.start();
     }
 
     public String GetAddress() {
