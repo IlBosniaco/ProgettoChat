@@ -21,12 +21,12 @@ public class ThreadInvio extends Thread {
     private Condivisa c;
 
     public ThreadInvio() throws SocketException {
-        this.invia = new DatagramSocket(2003);
+        this.invia = new DatagramSocket(2004);
         this.c = new Condivisa();
     }
 
     public ThreadInvio(Condivisa c) throws SocketException {
-        this.invia = new DatagramSocket(2003);
+        this.invia = new DatagramSocket(2004);
         this.c = c;
     }
 

@@ -7,6 +7,7 @@ package chat;
 
 import java.awt.HeadlessException;
 import static java.lang.Thread.sleep;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +28,12 @@ public class chatFrame extends javax.swing.JFrame {
     public chatFrame(Condivisa c, gestioneEventi g) throws HeadlessException {
         initComponents();
         this.c = c;
-        this.g=g;
-        c.frame=this;
+        this.g = g;
+        c.frame = this;
     }
-    
+
     public chatFrame() {
-        
+
     }
 
     /**
@@ -150,7 +151,7 @@ public class chatFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws InterruptedException {
+    public static void main(String args[]) throws InterruptedException, SocketException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -177,43 +178,39 @@ public class chatFrame extends javax.swing.JFrame {
 
         Condivisa c = new Condivisa();
         gestioneEventi g = new gestioneEventi(c);
-        
+        ThreadRicevi tr = new ThreadRicevi(c);
+        ThreadInvio ti = new ThreadInvio(c);
+        ThreadElabora te = new ThreadElabora(c, g);
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new chatFrame(c,g).setVisible(true);
+                new chatFrame(c, g).setVisible(true);
             }
         });
 
-        
     }
-    
-    
-    public String GetAddress()
-    {
+
+    public String GetAddress() {
         return txtDestinatario.getText();
     }
-    
-    public String GetLabel()
-    {
+
+    public String GetLabel() {
         return txtChat.getText();
     }
-    
-    
-    
+
     /**
-     * @brief setta la label JLabel1 in un contesto thread safe
-     * richiama la funzione SwingUtilities che permette di eseguire un update alla grafica ( swing ) 
-     * in un contesto invocato ( e quindi gestito del thread grafico ) 
+     * @brief setta la label JLabel1 in un contesto thread safe richiama la
+     * funzione SwingUtilities che permette di eseguire un update alla grafica (
+     * swing ) in un contesto invocato ( e quindi gestito del thread grafico )
      * @param s String stringa da impostare alla labet
      */
-    public void Setlabel(String s)
-    {
-         SwingUtilities.invokeLater(new Runnable() {
+    public void Setlabel(String s) {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-               //Codice da eseguire nel Thread grafico
-              txtChat.setText(s);
-              
+                //Codice da eseguire nel Thread grafico
+                txtChat.setText(s);
+
             }
         });
     }
